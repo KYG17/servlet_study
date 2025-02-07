@@ -11,12 +11,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 
-//서블릿의 별명을 servletNames에 작성
-//별명이 receiveDataServlet인 서블릿을 필터해줄거에요!
-//@WebFilter(servletNames = "receiveDataServlet")
 //@WebFilter("/receive/*")
 //@WebFilter("/*")
-@WebFilter("/receive/data")
+//@WebFilter("/receive/data")
+//서블릿의 별명을 servletNames에 작성
+//별명이 receiveDataServlet인 서블릿을 필터해줄거에요!
+@WebFilter(servletNames = "receiveDataServlet")
 public class DataFilter extends HttpFilter implements Filter {
 	
 	private static final long serialVersionUID = 1L;

@@ -24,7 +24,9 @@ public class ReceiveMsgServlet extends HttpServlet {
 //		request.setCharacterEncoding("UTF-8"); ->필터로 걸어줄거야
 		System.out.println( "----  확인 ---- ");
 		
+		
 		String msg = request.getParameter("msg");
+		System.out.println(msg);
 		
 		RequestDispatcher view = request.getRequestDispatcher("/views/msgShow.jsp");
 		

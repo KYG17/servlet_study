@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/receive/data")
+//@WebServlet("/receive/data")
 //name은 필터의 별명 , urlPatterns는 inform action
-//@WebServlet(name="receiveDataServlet",urlPatterns="/receive/data")
+@WebServlet(name="receiveDataServlet",urlPatterns="/receive/data")
 public class ReceiveDataServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
