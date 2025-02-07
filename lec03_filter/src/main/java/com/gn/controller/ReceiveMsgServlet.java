@@ -21,7 +21,7 @@ public class ReceiveMsgServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+//		request.setCharacterEncoding("UTF-8"); ->필터로 걸어줄거야
 		System.out.println( "----  확인 ---- ");
 		
 		String msg = request.getParameter("msg");
