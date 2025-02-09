@@ -1,17 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-     String name = (String)request.getAttribute("user_text");
+    	String msg = (String)request.getAttribute("msg");
     %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>결과</title>
+<title>결과 확인</title>
 </head>
 <body>
-<h1>결과</h1>
-<h3><%= name %></h3>
-
+	<h3>필터 연습 중</h3>
+	<%= msg %>
 </body>
 </html>

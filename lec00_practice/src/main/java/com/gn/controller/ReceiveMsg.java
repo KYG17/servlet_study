@@ -9,23 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/data")
-public class Data extends HttpServlet {
+@WebServlet("/receive/msg")
+public class ReceiveMsg extends HttpServlet {
+
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		
-	}
-
-	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String name = req.getParameter("user_text");
-		System.out.println(name);
-		RequestDispatcher view = req.getRequestDispatcher("views/data.jsp");
-		req.setAttribute("user_text",name);
+		String msg = req.getParameter("msg");
+		System.out.println(msg);
+		
+		RequestDispatcher view = getServletContext().getRequestDispatcher("/views/msgShow.jsp");	
+		req.setAttribute("msg", msg);
 		view.forward(req, resp);
 	}
 	
