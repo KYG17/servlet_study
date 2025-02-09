@@ -12,7 +12,7 @@ public class MsgRequestWrapper extends HttpServletRequestWrapper {
 
 	@Override
 	public String getParameter(String name) {
-		return super.getParameter(name)+"하세요";
+		return super.getParameter(name)+"-gn";
 		
 	}
 	
