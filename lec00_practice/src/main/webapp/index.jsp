@@ -13,7 +13,7 @@
 <body>
 
 	<ul>
-		<li><a href="/createCookie">쿠키!!</a></li>
+		<li><a href="/createCookieName">쿠키!!</a></li>
 	
 		<li>
 			<% 
