@@ -15,19 +15,6 @@
 	<ul>
 		<li><a href="/createCookieName">쿠키!!</a></li>
 	
-		<li>
-			<% 
-			String userId = "쿠키없음";
-			if(cookies != null){
-				for(Cookie c : cookies){
-					if("user_id".equals(c.getName())){
-						userId = c.getValue();
-					}
-				}
-			} %>
-			아이디 : <%= userId %>
-		</li>
-	
 		
 	</ul>
 
