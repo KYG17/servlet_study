@@ -8,9 +8,11 @@ import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.gn.account.vo.Account;
 
@@ -55,7 +57,7 @@ public class LoginEndServlet extends HttpServlet {
 			pstmt.setString(2, accountPw);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				account = new Account();
+			    account = new Account();
 				account.setAccountNo(rs.getInt("account_no"));
 				account.setAccountId(rs.getString("account_id"));
 				account.setAccountPw(rs.getString("account_pw"));
@@ -75,18 +77,37 @@ public class LoginEndServlet extends HttpServlet {
 		}
 		
 		
-		
 		//2-1 있으면 -> 사용자의 정보 (번호,아이디,비밀번호,이름) 담고 있는 객체 Session에 저장
-		//		   -> 아이디 정보 저장 O : Cookie에 아이디 저장
-		if(account != null) {
-			//		   -> 아이디 정보 저장 X : 저장 X
-			//         -> 홈 화면 이동 : 로그인한 사용자 정보 노출
+		HttpSession session = request.getSession();
+		if(session.isNew() || session.getAttribute("account") == null) {
+			session.setAttribute("account", account);
+			session.setMaxInactiveInterval(5);
+		}
+		//-> 아이디 정보 저장 O : Cookie에 아이디 저장 //checkbok 가 check
+		
+		if(rememberId != null) {
+			//account.getAccountId -> database에서 검증된 데이터
+			Cookie cookie = new Cookie("remember_id",account.getAccountId());
+			cookie.setMaxAge(60*60*24*7);
+			response.addCookie(cookie);
 			
-			System.out.println(account);
+		}else {
+			Cookie cookie = new Cookie("remember_id","");
+			cookie.setMaxAge(0);
+			response.addCookie(cookie);
+		}
+//      -> 홈 화면 이동 : 로그인한 사용자 정보 노출
+		response.sendRedirect("/");
+		
+		if(account != null) {
+			//-> 아이디 정보 저장 X : 저장 X
+			
+			
+			
 		}else {
 			//2-2 없으면 -> 로그인 페이지 다시 요청
+			response.sendRedirect("/login");
 			
-			System.out.println("아무코토 없는데용");
 		}
 		
 			
