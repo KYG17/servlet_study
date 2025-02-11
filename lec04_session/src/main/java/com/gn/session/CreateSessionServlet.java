@@ -29,7 +29,7 @@ public class CreateSessionServlet extends HttpServlet {
 		
 		if(session.isNew() || session.getAttribute("member_id") == null) {
 			session.setAttribute("member_id", "user01");
-			session.setMaxInactiveInterval(60*30); //10초 , 일반적으로 30분이 국룰
+			session.setMaxInactiveInterval(3); //10초 , 일반적으로 30분이 국룰
 		}
 		
 		response.sendRedirect("/");
