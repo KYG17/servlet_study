@@ -29,7 +29,7 @@
     			$.ajax({
     				url : "/GuestBookEndServlet",
     				type : "get" ,
-    				dataType : "json",
+    				dataType : "json", // 응답의 결과로 json형태로 받아줘
     				data : {guestArr : guestArr , msg : msg},
     				success : function(data){
     					$("#guestbook_list").append("<li>"+"이름 : "+data.name+"방명록 : "+data.message+"</li>")
