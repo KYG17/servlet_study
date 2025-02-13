@@ -1,6 +1,7 @@
 package com.gn.member.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,6 +37,7 @@ public class MemberCreateEndServlet extends HttpServlet {
 		m.setMemberPw(pw);
 		m.setMemberName(name);
 		
+	
 		//Service에 데이터 전달
 		int result = new MemberService().createMember(m);
 		//회원가입이 성공적으로 완료 , 혹은 안될 때 화면 전환

@@ -12,7 +12,7 @@ public class MemberService {
 	//createMember 메소드
 	//Member를 매개변수로 받아서 
 	//Connection 객체 생성
-	//MemberDao에게 Connection과 Member 전달
+	//MemberDao에게 Connection과 MemberM 전달
 	//int 반환
 	private MemberDao dao = new MemberDao();
 	public int createMember(Member m) {
