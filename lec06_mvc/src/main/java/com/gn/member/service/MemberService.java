@@ -28,4 +28,11 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+	
+	public int updateMember(String name, String pw , String no) {
+		Connection conn = getConnection();
+		int result = dao.updateMember(name,pw,no,conn);
+		close(conn);
+		return result;
+	}
 }

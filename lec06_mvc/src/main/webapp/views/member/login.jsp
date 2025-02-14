@@ -39,7 +39,8 @@ rel="stylesheet" type="text/css">
 				alert('비밀번호를 입력하세요.');
 				form.member_pw.focus();
 			} else {
-				form.submit();
+				 form.submit(); 
+				
 			}
 		}
 	</script>
