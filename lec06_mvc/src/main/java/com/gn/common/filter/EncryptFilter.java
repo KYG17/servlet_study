@@ -13,7 +13,7 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 
 
-@WebFilter(servletNames = {"memberCreateEndServlet"})
+@WebFilter(servletNames = {"memberCreateEndServlet" , "memberloginendservlet"})
 public class EncryptFilter extends HttpFilter implements Filter {
        
    

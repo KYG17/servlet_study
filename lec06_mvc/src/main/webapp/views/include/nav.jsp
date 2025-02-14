@@ -6,8 +6,11 @@
 		<div class="menu">
 			<ul>
 				<li>
-					<a href="#">로그인</a>
+					<a href="/memberLogin">로그인</a>
 				</li>
+				<!--  1. MemberLoginServlet
+					2./views/member/login.jsp
+					3. css = resources/css/member/login.css -->
 				<li>
 					<a href="/memberCreate">회원가입</a>
 				</li>

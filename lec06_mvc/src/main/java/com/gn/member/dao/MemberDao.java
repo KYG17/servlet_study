@@ -1,7 +1,9 @@
 package com.gn.member.dao;
+import static com.gn.common.sql.JDBCTemplate.close;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import static com.gn.common.sql.JDBCTemplate.close;
+import java.sql.ResultSet;
 
 import com.gn.member.vo.Member;
 public class MemberDao {
@@ -28,6 +30,35 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public Member loginMember(String id, String pw , Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		//Member m 을 null 로 선언
+		Member m = null;
+		try {
+			String sql = "SELECT * FROM member WHERE member_id = ? AND member_pw = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				//그리고 if문 안에서 m을 재할당
+				m = new Member();
+				m.setMemberNo(rs.getInt("member_no"));
+				m.setMemberId(rs.getString("member_id"));
+				m.setMemberPw(rs.getString("member_pw"));
+				m.setMemberName(rs.getString("member_name"));
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
 	}
 
 }
