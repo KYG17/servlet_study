@@ -35,4 +35,11 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	
+	public Member RealUpdateMember(String no) {
+		Connection conn = getConnection();
+		Member m = dao.RealUpdateMember(no , conn);
+		close(conn);
+		return m;
+	}
 }

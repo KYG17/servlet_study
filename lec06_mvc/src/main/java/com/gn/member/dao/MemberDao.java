@@ -78,5 +78,31 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	public Member RealUpdateMember(String no , Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member m = null;
+		try {
+			String sql = "SELECT * FROM member WHERE member_no = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				m = new Member();
+				m.setMemberNo(rs.getInt("member_no"));
+				m.setMemberId(rs.getString("member_id"));
+				m.setMemberPw(rs.getString("member_pw"));
+				m.setMemberName(rs.getString("member_name"));
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
+	}
 
 }
