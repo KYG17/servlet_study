@@ -32,7 +32,18 @@ public class MemberLoginEndServlet extends HttpServlet {
 		String pw = request.getParameter("member_pw");
 		System.out.println("아이디 : " + id + "비밀번호 : " + pw);
 		
-		//3. 전달받은 아이디와 비밀번화가 일치하는 회원 정보 조회(번호,아이디,비밀번호,이름)조회
+		//3. 전달받은 아이디와 비밀번호가 일치하는 회원 정보 조회(번호,아이디,비밀번호,이름)조회
+		
+		
+		//객체를 생성해서 담고 싶으면 get/set을 쓰는 대신에 매개변수 생성자 id pw를 생성해서 만드는 방식이 더 효율적
+		//Member m = new Member(id,pw)
+		//m = new MemberService().loginMember(m);
+//		Member m = new Member();
+//		m.setMemberId(id);
+//		m.setMemberPw(pw);
+//		
+//		m = new MemberService().loginMember(m);
+		
 		Member m = new MemberService().loginMember(id,pw);
 		
 //		System.out.println("번호 :" + m.getMemberNo());

@@ -80,9 +80,9 @@
 						//경로로 이동(location)
 						alert(data.res_msg);
 						if(data.res_code == 200){
-							window.location.href = "/"
+							window.location.href = "/views/member/create_success.jsp";
 						}else{
-							window.location.href = "/";
+							window.location.href = "/views/member/create_fail.jsp";
 						}
 						
 					}

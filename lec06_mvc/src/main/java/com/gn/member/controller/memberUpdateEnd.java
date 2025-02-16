@@ -34,7 +34,7 @@ public class memberUpdateEnd extends HttpServlet {
 		String name = request.getParameter("member_name");
 		String pw = request.getParameter("member_pw");
 		String no = request.getParameter("member_no");
-		System.out.println(name + pw + no);
+		System.out.println("입력된 정보 - ID: " + no + ", PW: " + pw + ", Name: " + name);
 		
 		JSONObject obj = new JSONObject();
 		obj.put("res_code", "500");
