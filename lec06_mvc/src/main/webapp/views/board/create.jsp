@@ -7,6 +7,7 @@
 <title>게시글 등록</title>
 <link href='<%=request.getContextPath()%>/resources/css/board/create.css' 
 rel="stylesheet" type="text/css">
+<script src ="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
 	<%@ include file="/views/include/header.jsp" %>
@@ -48,8 +49,30 @@ rel="stylesheet" type="text/css">
 				const idx = val.lastIndexOf('.');
 				const type = val.substring(idx+1,val.length);
 				if(type == 'jpg' || type == 'png' || type == 'jpeg'){
-					form.submit();
+					//form.submit();
 					//console.log(val);
+					//파일 데이터를 보내줘야 하는 속성들 cache , async , contentType , processType
+					const sendData = new FormData(form);
+					$.ajax({
+						url:'/boardCreateEnd',
+						type:'post',
+						enctype:'multipart/form-data',
+						cache:false,
+						async:false,
+						contentType:false,
+						processData:false,
+						data:sendData,
+						dataType:'json',
+						success:function(data){
+							alert(data.res_msg);
+							if(data.res_code == 200){
+								location.href="/boardList";
+							}else{
+								//location.href="/";
+							}
+						}
+						
+					})
 				}else{
 					alert('이미지 파일만 선택할 수 있습니다')
 					form.board_file.value = '';
