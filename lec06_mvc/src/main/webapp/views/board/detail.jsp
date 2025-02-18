@@ -22,7 +22,7 @@
 			<div class="board_detail">
 				<ul>
 					<li>
-						<img src="">
+						<img src="C:\\upload\\board\\<%=board.getNewName() %>">
 						<br>
 						<span></span>
 					</li>

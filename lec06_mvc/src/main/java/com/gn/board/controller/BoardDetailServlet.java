@@ -29,7 +29,7 @@ public class BoardDetailServlet extends HttpServlet {
 		Board board = new BoardService().selectBoardOne(boardNo);
 		RequestDispatcher view = request.getRequestDispatcher("/views/board/detail.jsp");
 		request.setAttribute("board", board);
-		view.equals(view);
+		view.forward(request,response);
 	}
 
 

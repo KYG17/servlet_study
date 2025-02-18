@@ -149,7 +149,11 @@ public class BoardDao {
 		ResultSet rs = null;
 		Board b = null;
 		try {
-			String sql = "SELECT * FROM `board` b JOIN `member` m ON b.board_writer = m.member_no WHERE board_no = ? ";
+			String sql = "SELECT * FROM `board` b "
+					+ "JOIN `member` m ON b.board_writer = m.member_no "
+					+ "JOIN `attach` a ON b.board_no = a.board_no "
+					+ "WHERE b.board_no = ? ";
+//			sql += "SELECT * FROM attach";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNo);
 			rs = pstmt.executeQuery();
@@ -161,7 +165,9 @@ public class BoardDao {
 				b.setRegDate(rs.getTimestamp("reg_date").toLocalDateTime());
 				b.setModDate(rs.getTimestamp("mod_date").toLocalDateTime());
 				b.setMemberName(rs.getString("member_name"));
+				b.setNewName(rs.getString("new_name"));
 			}
+			
 			
 		}catch(Exception e){
 			e.printStackTrace();
