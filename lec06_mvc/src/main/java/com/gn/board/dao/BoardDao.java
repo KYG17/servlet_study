@@ -143,5 +143,33 @@ public class BoardDao {
 		}
 		return result;
 	}
+	
+	public Board selectBoardOne(Connection conn , int boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Board b = null;
+		try {
+			String sql = "SELECT * FROM `board` b JOIN `member` m ON b.board_writer = m.member_no WHERE board_no = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				b = new Board();
+				b.setBoardTitle(rs.getString("board_title"));
+				b.setBoardContent(rs.getString("board_content"));
+				b.setBoardWriter(rs.getInt("board_writer"));
+				b.setRegDate(rs.getTimestamp("reg_date").toLocalDateTime());
+				b.setModDate(rs.getTimestamp("mod_date").toLocalDateTime());
+				b.setMemberName(rs.getString("member_name"));
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+		return b;
+	}
 
 }

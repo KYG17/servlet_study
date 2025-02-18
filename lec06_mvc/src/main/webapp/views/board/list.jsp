@@ -8,6 +8,7 @@
 <title>게시판</title>
 <link href='<%=request.getContextPath()%>/resources/css/include/paging.css' rel="stylesheet" type="text/css">
 <link href='<%=request.getContextPath()%>/resources/css/board/list.css' rel="stylesheet" type="text/css">
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
 <% List<Board> list = (List<Board>)request.getAttribute("resultList"); %>
 </head>
 <body>
@@ -45,8 +46,8 @@
 					<tbody>
 					<%DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm"); %>
 					<% for(int i = 0 ; i < list.size() ; i++) {%>
-					<tr>
-						<td><%=list.get(i).getBoardNo() %></td>
+					<tr data-board-no="<%=list.get(i).getBoardNo()%>">
+						<td><%=((paging.getNowPage()-1)*paging.getNumPerPage())+(i+1) %></td>
 						<td><%=list.get(i).getBoardTitle() %></td>
 						<td><%=list.get(i).getMemberName() %></td>
 						<td><%=list.get(i).getRegDate().format(dtf) %></td>					
@@ -77,5 +78,14 @@
 			</div>
 		</div>
 	<%} %>
+	<script>
+	$('.board_list tbody tr').on('click',function(){
+		const boardNo = $(this).data('board-no');
+		location.href='/boardDetail?board_no='+boardNo;
+	})
+	
+	
+	
+	</script>
 </body>
 </html>
