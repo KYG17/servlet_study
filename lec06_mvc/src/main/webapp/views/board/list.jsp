@@ -59,7 +59,7 @@
 		</div>
 	</section>
 
-	<%if(paging != null) {%>
+ 	<%if(paging != null) {%>
 		<div class="center">
 			<div class="pagination">
 				<%if(paging.isPrev()){ %>
@@ -77,7 +77,7 @@
 			
 			</div>
 		</div>
-	<%} %>
+	<%} %>    
 	<script>
 	$('.board_list tbody tr').on('click',function(){
 		const boardNo = $(this).data('board-no');
