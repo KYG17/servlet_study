@@ -41,11 +41,19 @@ public class BoardService {
 		return result;
 	}
 	
-	public List<Board>selectBoardList(){
+	public int selectBoardCount(Board option) {
+		Connection conn = getConnection();
+		int result = new BoardDao().selectBoardCount(conn,option);
+		close(conn);
+		return result;
+	}
+	
+	public List<Board>selectBoardList(Board option){
 		Connection conn = getConnection();
 		List<Board> resultList = new ArrayList<Board>();
-		resultList  = new BoardDao().selectBoardList(conn);
+		resultList  = new BoardDao().selectBoardList(conn,option);
 		return resultList;
 	}
+	
 		
 }

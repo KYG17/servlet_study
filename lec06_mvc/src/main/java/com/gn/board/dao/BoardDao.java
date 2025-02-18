@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +73,7 @@ public class BoardDao {
 		return result;
 	}
 	
-	public List<Board>selectBoardList(Connection conn){
+	public List<Board>selectBoardList(Connection conn,Board option){
 		// 게시글 번호(board_no) b.board_no
 		// 게시글 제목(board_title) b.board_title
 		// 게시글 내용(board_content) b.board_content
@@ -86,16 +85,21 @@ public class BoardDao {
 		ResultSet rs = null;
 		List<Board> result = new ArrayList<>();
 		try {
-			String sql = "SELECT b.board_no ,b.board_title ,b.board_content ,m.member_name ,b.reg_date ,b.mod_date "
-					+ "FROM member m "
-					+ "JOIN board b "
-					+ "ON m.member_no = b.board_writer ";
+			String sql = "SELECT * "
+					+ "FROM board b "
+					+ "JOIN member m "
+					+ "ON b.board_writer = m.member_no ";
+			
+			if(option.getBoardTitle() != null) {
+				sql += "WHERE board_title Like CONCAT('%','"+option.getBoardTitle()+"','%')";
+			}
+			/////// 추가 !!! 무적권 있어야함! //////
+			sql += "LIMIT " +option.getLimitPageNo()+", "+option.getNumPerPage();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Board b = new Board();
 				b.setBoardNo(rs.getInt("board_no"));
-				b.setBoardTitle(rs.getString("board_title"));
 				b.setBoardTitle(rs.getString("board_title"));
 				b.setBoardContent(rs.getString("board_content"));
 				b.setMemberName(rs.getString("member_name"));
@@ -111,6 +115,32 @@ public class BoardDao {
 			close(pstmt);
 		}
 		System.out.println("dao : "+result);
+		return result;
+	}
+	
+	public int selectBoardCount(Connection conn , Board option) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0 ;
+		try {
+			String sql = "SELECT COUNT(*) FROM board ";
+			if(option.getBoardTitle() != null) {
+				sql += "WHERE board_title Like CONCAT('%','"+option.getBoardTitle()+"','%') ";
+			}
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
 		return result;
 	}
 

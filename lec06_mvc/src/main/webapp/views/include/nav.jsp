@@ -9,6 +9,10 @@
 	<div id="nav_wrap">
 		<div class="menu">
 			<ul>
+			<!--  게시판은 로그인/비로그인 한 사람도 볼 수 있으므로 조건문 밖으로 빼놓음 -->
+				<li>
+					<a href="/boardList">게시판</a>
+				</li>
 			<% if(m == null) {%>
 				<li>
 					<a href="/memberLogin">로그인</a>
@@ -18,9 +22,6 @@
 					3. css = resources/css/member/login.css -->
 				<li>
 					<a href="/memberCreate">회원가입</a>
-				</li>
-				<li>
-					<a href="/boardList">게시판</a>
 				</li>
 				<%} else{ %>
 				<li>
