@@ -45,21 +45,33 @@
 					</thead>
 					<tbody>
 					<%DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm"); %>
-					<% for(int i = 0 ; i < list.size() ; i++) {%>
+				<%-- 	<% for(int i = 0 ; i < list.size() ; i++) {%>
 					<tr data-board-no="<%=list.get(i).getBoardNo()%>">
 						<td><%=((paging.getNowPage()-1)*paging.getNumPerPage())+(i+1) %></td>
 						<td><%=list.get(i).getBoardTitle() %></td>
 						<td><%=list.get(i).getMemberName() %></td>
 						<td><%=list.get(i).getRegDate().format(dtf) %></td>					
 					</tr>
-					<% } %>	
+					<% } %>	 --%>
+					<c:forEach var="list" items="${resultList }" varStatus="vs">
+					
+					<%-- <c:forEach var="i" begin="0" end= --%>
+					<tr data-board-no="${list.boardNo }">
+						<td>${(page.nowPage-1)*page.numPerPage+ vs.index + 1 }</td>
+						<td>${list.boardTitle }</td>
+						<td>${list.memberName }</td>
+						<td>${list.regDate }</td>
+					</tr>
+					
+					</c:forEach>
+					
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</section>
 
- 	<%if(paging != null) {%>
+<%--  	<%if(paging != null) {%>
 		<div class="center">
 			<div class="pagination">
 				<%if(paging.isPrev()){ %>
@@ -77,7 +89,23 @@
 			
 			</div>
 		</div>
-	<%} %>    
+	<%} %>  --%>
+  	<c:if test="${not empty paging }">
+		<div class="center">
+			<div class="pagination">
+				<c:if test="${paging.prev }">
+					<a href="/boardList?nowPage=${paging.pageBarStart-1 }&board_title=${empty paging.boardTitle ? '' : paging.boardTitle}">&laquo; </a>
+				</c:if>
+				<c:forEach var="i" begin="${paging.pageBarStart }" end="${paging.pageBarEnd }">
+					<a href="boardList?nowPage=${i }&board_title=${empty paging.boardTitle ? '' : paging.boardTitle}">${i } </a>
+				</c:forEach>
+				<c:if test="${paging.next }">
+					<a href="/boardList?nowPage=${paging.pageBarEnd+1 }&board_title=${empty paging.boardTitle ? '' : paging.boardTitle}">%raquo; </a>
+				</c:if>
+			</div>
+		</div>
+	</c:if>  
+	   
 	<script>
 	$('.board_list tbody tr').on('click',function(){
 		const boardNo = $(this).data('board-no');
