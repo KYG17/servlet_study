@@ -165,7 +165,7 @@ public class BoardDao {
 				b.setRegDate(rs.getTimestamp("reg_date").toLocalDateTime());
 				b.setModDate(rs.getTimestamp("mod_date").toLocalDateTime());
 				b.setMemberName(rs.getString("member_name"));
-				b.setNewName(rs.getString("new_name"));
+				b.setAttachNo(rs.getInt("attach_no"));
 			}
 			
 			
@@ -176,6 +176,33 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return b;
+	}
+	
+	public Attach selectAttachOne(Connection conn , int attachNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Attach a = null;
+		try {
+			String sql = "SELECT * FROM `attach` WHERE attach_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, attachNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				a = new Attach();
+				//rs.get~ 데이터베이스에서 넘어오는 컬럼명
+				a.setAttachNo(rs.getInt("attach_no"));
+				a.setOriName(rs.getString("ori_name"));
+				//new_name은 사실 필요없음
+				a.setNewName(rs.getString("new_name"));
+				a.setAttachPath(rs.getString("attach_path"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return a;
 	}
 
 }

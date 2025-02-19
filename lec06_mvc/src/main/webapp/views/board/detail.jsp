@@ -22,7 +22,7 @@
 			<div class="board_detail">
 				<ul>
 					<li>
-						<img src="C:\\upload\\board\\<%=board.getNewName() %>">
+						<img src="<%=request.getContextPath() %>/filePath?attach_no=<%=board.getAttachNo() %>">
 						<br>
 						<span></span>
 					</li>
