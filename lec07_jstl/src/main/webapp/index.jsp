@@ -4,6 +4,9 @@
     docs에 보면 친절하게 설명해준다
     귀찮다고 안하지 말고 좀 보자 !!!! -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -195,8 +198,39 @@
 		</p>
 	</c:forEach>
 	
+	<hr><hr><hr>
+	<h1>JSTL Formatting Library</h1>
+	<h2>1. formatNumber</h2>
+	<!-- 천 단위의 ,가 생김 -->
+	<fmt:formatNumber value="1234.567" type="number"/> <br>
+	<!-- currency : 소수점 단위가 있으면 반올림 -->
+	<fmt:formatNumber value="1234.567" type="currency"/> <br>
+	<!-- 특정 나라를 설정하고 싶으면 setLocale과 한세트! -->
+	<fmt:setLocale value="en_US"/>
+	<fmt:formatNumber value="1234.567" type="currency"/> <br>
+	<!-- 퍼센트로 알아서 해서 그리고 반올림 처리 -->
+	<fmt:formatNumber value="0.875" type="percent" /> <br>
 	
+	<fmt:formatNumber value="1234.567" pattern="#,###.##" /><br>
+	<fmt:formatNumber value="1234.5" pattern="00000.00" />
+
+	<h2>2. formatDate</h2>
+	<!-- now는 데이트 타입의 객체 -->
+	<c:set var="now" value="<%=new java.util.Date() %>" />
+	<fmt:formatDate value="${now }" type="date"/><br>
+	<!-- 패턴을 지정해서 써주자! -->
+	<fmt:formatDate value="${now }" pattern="yyyy-MM-dd HH:mm:ss" /><br>
 	
+	<!-- 문자열 타입의 날짜 정보일뿐 -->
+	<!-- pattern: value가 어떤 형식으로 적혀져 있나요? 내가 어떻게 읽으면 되는거야? -->
+	<fmt:parseDate value="2025-02-20" pattern="yyyy-MM-dd" var="parsedDate" />
+	<fmt:formatDate value="${parsedDate }" pattern="yy년MM월"/><br>
+	<br>
+	<h1>JSTL Function Lib</h1>
+	<c:set var="data" value="How Are You? I am fine" />
+	<p><c:out value="${fn:toUpperCase(data) }" /></p>
+	<p><c:out value="${fn:replace(data,'fine','괜찮아') }" />
+	<p><c:out value="${fn:contains(data, 'You') }?'잇다':'없다' " /></p>
 	
 	
 	

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import='com.gn.board.vo.Board , java.util.List ,java.time.format.*' %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html> 
 <head>
@@ -8,7 +11,8 @@
 <title>게시판</title>
 <link href='<%=request.getContextPath()%>/resources/css/include/paging.css' rel="stylesheet" type="text/css">
 <link href='<%=request.getContextPath()%>/resources/css/board/list.css' rel="stylesheet" type="text/css">
-<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
+<%-- <script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script> --%>
+<script src="<c:url value='/resources/js/jquery-3.7.1.js' />"></script>
 <% List<Board> list = (List<Board>)request.getAttribute("resultList"); %>
 </head>
 <body>
@@ -20,7 +24,8 @@
 				<div class="search">
 			<form action="/boardList" name="search_board_form" method="get">
 				<input type="text" name="board_title" placeholder="검색하고자 하는 게시글 제목을 입력하세요."
-				value="<%=paging.getBoardTitle() == null ? "" : paging.getBoardTitle()%>">
+			<%-- 	value="<%=paging.getBoardTitle() == null ? "" : paging.getBoardTitle()%>"> --%>
+				value="${paging.boardTitle }">
 				<input type="submit" value="검색">
 			</form>	
 		</div>
@@ -53,17 +58,30 @@
 						<td><%=list.get(i).getRegDate().format(dtf) %></td>					
 					</tr>
 					<% } %>	 --%>
-					<c:forEach var="list" items="${resultList }" varStatus="vs">
 					
-					<%-- <c:forEach var="i" begin="0" end= --%>
-					<tr data-board-no="${list.boardNo }">
-						<td>${(page.nowPage-1)*page.numPerPage+ vs.index + 1 }</td>
-						<td>${list.boardTitle }</td>
-						<td>${list.memberName }</td>
-						<td>${list.regDate }</td>
+					<c:choose>
+					<c:when test="${not empty resultList }">
+						<c:forEach var="list" items="${resultList }" varStatus="vs">
+							<tr data-board-no="${list.boardNo }">
+								<td>${(page.nowPage-1)*page.numPerPage+ (vs.index + 1) }</td>
+								<td>${list.boardTitle }</td>
+								<td>${list.memberName }</td>
+								<%-- <td>${list.regDate }</td> --%>
+								<fmt:parseDate value="${list.regDate }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="strRegDate"/>
+								<td><fmt:formatDate value="${strRegDate }" pattern="yy년MM월dd일 HH시mm분" /></td>
 					</tr>
+					</c:forEach>	
+						</c:when>
+					<c:otherwise>
+						<tr>
+							<td colspan="4">조회된 데이터가 없습니다!</td>
+						</tr>
+					</c:otherwise>
 					
-					</c:forEach>
+					</c:choose>
+					
+					
+				
 					
 					</tbody>
 				</table>
@@ -94,7 +112,11 @@
 		<div class="center">
 			<div class="pagination">
 				<c:if test="${paging.prev }">
-					<a href="/boardList?nowPage=${paging.pageBarStart-1 }&board_title=${empty paging.boardTitle ? '' : paging.boardTitle}">&laquo; </a>
+					<c:url var="testUrl" value="/boardList">
+						<c:param name="nowPage" value="${paging.pageBarStart-1 }"/>
+						<c:param name="board_title" value="${paging.boardTitle }" />
+					</c:url>
+					<a href="${testUrl }">&laquo; </a>
 				</c:if>
 				<c:forEach var="i" begin="${paging.pageBarStart }" end="${paging.pageBarEnd }">
 					<a href="boardList?nowPage=${i }&board_title=${empty paging.boardTitle ? '' : paging.boardTitle}">${i } </a>
