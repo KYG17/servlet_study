@@ -11,7 +11,7 @@
 		<result property="regDate" column="reg_date"/>
 		<result property="modDate" column="mod_date"/>	
 	</resultMap>		
-	<select id="boardList" resultType="com.gn.board.vo.Board" resultMap="boardMap">
+	<select id="boardList" resultType="board" resultMap="boardMap">
 		SELECT  * 
 		FROM `board`
 	</select>
