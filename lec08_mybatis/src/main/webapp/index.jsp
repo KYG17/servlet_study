@@ -4,9 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>홈화면</title>
 </head>
 <body>
+	<ol>
+		<li>
+		<a href="/boardList">목록조회</a>	
+		</li>
+		<li>상세조회</li>
+		<li>수정</li>
+		<li>삭제</li>
+		<li>등록</li>
+	</ol>
 
 </body>
 </html>
