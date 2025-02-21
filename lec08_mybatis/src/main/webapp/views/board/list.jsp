@@ -16,6 +16,7 @@
 				<th>번호</th>
 				<th>제목</th>
 				<th>내용</th>
+				<th>날짜</th>
 			</tr>
 		</thead>
 	<tbody>
@@ -23,11 +24,13 @@
 		<!-- 그렇지 않으면 번호,제목,내용 출력 -->
 		<c:choose>
 			<c:when test="${not empty resultList }">
-				<c:forEach var="list" items="${resultList }">
+				<c:forEach var="list" items="${resultList }" varStatus="vs">
 					<tr>
-						<td >${list.boardNo }</td>
+						<td >${vs.count }</td>
 						<td>${list.boardTitle }</td>						
 						<td>${list.boardContent }</td>
+						<fmt:parseDate value="${list.regDate }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="todatDate" />
+						<td><fmt:formatDate value="${todatDate }" pattern="yyyy-MM-dd HH:mm"/></td>
 					</tr>			
 				</c:forEach>		
 			</c:when>
