@@ -8,9 +8,9 @@ import org.apache.ibatis.session.SqlSession;
 import com.gn.board.vo.Board;
 
 public class BoardDao {
-	public List<Board> selectBoardList(SqlSession session){
+	public List<Board> selectBoardList(SqlSession session,Board option){
 		//매개변수 : mapper의 namespace.쿼리문의 id
-		return session.selectList("boardMapper.boardList");
+		return session.selectList("boardMapper.boardList",option);
 	}
 	
 	public Board selectBoardone(SqlSession session , int boardNo) {
@@ -24,6 +24,26 @@ public class BoardDao {
 	
 	public Board selectBoardThree(SqlSession session,Board option) {
 		return session.selectOne("boardMapper.boardThree",option);
+	}
+	
+	public int updateBoard(SqlSession session, Board board) {
+		return session.update("boardMapper.boardUpdate",board);
+	}
+	
+	public int deleteBoard(SqlSession session, int boardNo) {
+		return session.delete("boardMapper.boardDelete",boardNo);
+	}
+	
+	public int insertBoard(SqlSession session, Board board) {
+		System.out.println("실행 전: " + board);
+		int result=session.insert("boardMapper.boardInsert",board);
+		System.out.println("실행 후 : " + board);
+		result = board.getBoardNo();
+		return result;
+	}
+	
+	public int insertMany(SqlSession session,List<Board>list) {
+		return session.insert("boardMapper.insertMany",list);
 	}
 
 }

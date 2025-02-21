@@ -22,7 +22,10 @@ public class SqlSessionTemplate {
 			//4.SqlSession 객채 생성 ->공장을 가동!!
 			//매개변수 -> AutoCommit여부 지정 ->default : true;
 			//AutoCommit 끄고 싶으면 openSession(false) 로 지정
-			session = factory.openSession();
+			// 1. 매개변수 X : AutoCommit X
+			// 2. true : AutoCommit O
+			// 3. false : AutoCommit x
+			session = factory.openSession(true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

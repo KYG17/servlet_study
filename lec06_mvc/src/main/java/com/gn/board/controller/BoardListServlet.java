@@ -26,6 +26,11 @@ public class BoardListServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
+		
+		
 		String boardTitle = request.getParameter("board_title");
 		String nowPage = request.getParameter("nowPage");
 		
